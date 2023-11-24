@@ -1,6 +1,8 @@
+import { API_BASE_URL } from "./globals";
+
 async function createCar(formData) {
   try {
-    const response = await fetch("http://localhost:3000/api/cars", {
+    const response = await fetch(`${API_BASE_URL}/cars`, {
       method: "post",
       body: formData,
     });
