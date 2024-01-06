@@ -75,6 +75,13 @@ export default function SignUpPage() {
                 sx={{ marginBottom: 2.5 }}
                 required
               />
+              <TextField
+                fullWidth
+                placeholder="Contact Number"
+                name="contact_number"
+                sx={{ marginBottom: 2.5 }}
+                required
+              />
             </Stack>
             <TextField
               fullWidth

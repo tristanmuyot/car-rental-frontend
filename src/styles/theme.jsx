@@ -11,6 +11,7 @@ const theme = createTheme({
       solidWhite: "#ffffff",
       solidBlack: "#000000",
       rawSienna: "#cd7e52",
+      lightGray: "#cfcbcb",
     },
   },
   typography: {

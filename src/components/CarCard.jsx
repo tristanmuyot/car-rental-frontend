@@ -3,6 +3,7 @@ import { Box, Stack, Typography, alpha, useTheme } from "@mui/material";
 import Button from "./Button";
 
 export default function CarCard(props) {
+  const { link } = props;
   const { name, brand, is_booked, transmission, image_url, rate } = props.data;
 
   const theme = useTheme();
@@ -60,10 +61,11 @@ export default function CarCard(props) {
           </Typography>
         </Box>
       </Stack>
-
-      <Box alignSelf="flex-end" justifySelf="flex-end">
-        <Button label="View Details" />
-      </Box>
+      {link && (
+        <Box alignSelf="flex-end" justifySelf="flex-end">
+          <Button label="View Details" to={link} />
+        </Box>
+      )}
     </Box>
   );
 }

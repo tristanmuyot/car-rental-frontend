@@ -10,6 +10,8 @@ import {
 import { NavLink, useLocation } from "react-router-dom";
 import Button from "../Button";
 import { useEffect, useState } from "react";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 export const NAVBAR_DESKTOP_HEIGHT = 90;
 export const NAVBAR_DESKTOP_HEIGHT_STICKY = 60;
@@ -29,6 +31,14 @@ export default function HeaderDesktop() {
   const location = useLocation();
   const [loggedin, setLoggedin] = useState(false);
   const [user, setUser] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const scrollTrigger = useScrollTrigger({
     disableHysteresis: true,
@@ -88,11 +98,33 @@ export default function HeaderDesktop() {
         </NavLink>
         {loggedin ? (
           <>
-            <NavLink to="/profile">
-              <Typography sx={{ textTransform: "capitalize" }}>
-                {user.data.username}
-              </Typography>
-            </NavLink>
+            <Typography
+              sx={{ textTransform: "capitalize", cursor: "pointer" }}
+              onClick={handleClick}
+            >
+              {user.data.username}
+            </Typography>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handleClose}>
+                <NavLink to="/profile">Profile</NavLink>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <NavLink to="/booking-list">My Bookings</NavLink>
+              </MenuItem>
+              {user.data.role === "admin" && (
+                <MenuItem onClick={handleClose}>
+                  <NavLink to="/admin">Manage</NavLink>
+                </MenuItem>
+              )}
+            </Menu>
             <Button
               label="Logout"
               variant="filled"
@@ -100,6 +132,7 @@ export default function HeaderDesktop() {
                 setLoggedin(false);
                 window.localStorage.removeItem("user");
                 setUser(null);
+                window.location.href = "/";
               }}
             />
           </>

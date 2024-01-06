@@ -12,6 +12,11 @@ import Footer from "./components/Footer";
 import SignUpPage from "./pages/registration";
 import ProfilePage from "./pages/profilePage";
 import AddCarForRentPage from "./pages/createCarPage";
+import VehiclesPage from "./pages/vehiclesPage";
+import ContactPage from "./pages/contactPage";
+import VehiclePage from "./pages/vehiclePage";
+import AdminPage from "./pages/adminPage";
+import BookingList from "./pages/bookingList";
 
 function App() {
   return (
@@ -20,11 +25,16 @@ function App() {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Header />
           <Routes>
-            <Route path="/" Component={HomePage} />
-            <Route path="/sign-in" Component={SignInPage} />
-            <Route path="/sign-up" Component={SignUpPage} />
-            <Route path="/profile" Component={ProfilePage} />
-            <Route path="/add-car" Component={AddCarForRentPage} />
+            <Route index element={<HomePage />} />
+            <Route path="/sign-in" element={<SignInPage />} />
+            <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/add-car" element={<AddCarForRentPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/vehicles" element={<VehiclesPage />} />
+            <Route path="/vehicles/:id" element={<VehiclePage />} />
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/booking-list" element={<BookingList />} />
           </Routes>
           <Footer />
         </LocalizationProvider>

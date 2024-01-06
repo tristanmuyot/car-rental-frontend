@@ -28,6 +28,7 @@ function HeroSection() {
   const theme = useTheme();
   const { rawSienna, white, darkCharcoal } = theme.palette.common;
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
+  const [loggedIn, setLoggedIn] = useState(false)
 
   const datePickerStyle = {
     ".MuiInputBase-input": { color: white },
@@ -35,6 +36,15 @@ function HeroSection() {
       height: "40px",
     },
   };
+  
+  useEffect(() => {
+    const userdata = window.localStorage.getItem("user");
+    if (userdata) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, []);
   return (
     <Box
       pt={{ xs: 12, md: 18 }}
@@ -90,9 +100,9 @@ function HeroSection() {
             Per Day
           </Typography>
           <Stack direction="row" alignItems="center" columnGap={2} mb={5}>
-            <Button label="Rent Now" />
+            <Button label="Rent Now" to= "/vehicles"/>
             <Typography color={alpha(darkCharcoal, 0.5)}>OR</Typography>
-            <Button label="Be Rented" />
+            <Button label="Be Rented" to={loggedIn ? '/add-car' : '/sign-up'}/>
           </Stack>
           <Stack
             width={{ xs: "100%", md: "120%" }}
@@ -247,7 +257,7 @@ function ContentAndImage() {
           customer service team is just a call away, ready to assist you every
           step of the way.
         </Typography>
-        <Button label="Book Now" />
+        <Button label="Book Now" to= "/vehicles" />
       </Box>
       <Box width={{ xs: "100%", md: "50%" }}>
         <img src={Photo1} alt="People with cars" width="100%" />
@@ -439,7 +449,7 @@ function CTASection() {
           <span style={{ color: rawSienna }}>CARPLEX</span>
         </Typography>
         <Button
-          label="BOOK NOW"
+          label="BOOK NOW" to= "/vehicles"
           sx={{
             width: "max-content",
             fontSize: 24,

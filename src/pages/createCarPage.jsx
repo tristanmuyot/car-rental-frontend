@@ -12,9 +12,10 @@ import ContentContainer from "../components/ContentContainer";
 import { NAVBAR_DESKTOP_HEIGHT } from "../components/Header/HeaderDesktop";
 import Button from "../components/Button";
 import Dropzone from "react-dropzone";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import createCar from "../utils/createCar";
 import { useNavigate } from "react-router-dom";
+import getCities from "../utils/getCities";
 
 export default function AddCarForRentPage() {
   const theme = useTheme();
@@ -24,6 +25,18 @@ export default function AddCarForRentPage() {
   const [loading, setLoading] = useState(false);
   const user = JSON.parse(window.localStorage.getItem("user"));
   const navigate = useNavigate();
+  const [cities, setCities] = useState(undefined);
+  console.log(cities);
+  useEffect(() => {
+    getCities()
+      .then((response) => {
+        setCities(response[0].city);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, []);
 
   const handleFileDrop = (files) => {
     console.log(files);
@@ -116,13 +129,24 @@ export default function AddCarForRentPage() {
                   </Select>
                 </Stack>
 
-                <TextField
-                  fullWidth
-                  placeholder="Location (Street, City)"
-                  name="location"
-                  sx={{ marginBottom: 2.5 }}
+                <Select
+                  defaultValue="0"
+                  sx={{ width: "100%", height: "53.13px", marginBottom: 2.5 }}
+                  name="city"
                   required
-                />
+                >
+                  <MenuItem value="0" disabled selected>
+                    Select City
+                  </MenuItem>
+                  {cities !== undefined &&
+                    cities.map((city) => {
+                      return (
+                        <MenuItem key={city.code} value={city.name}>
+                          {city.name}
+                        </MenuItem>
+                      );
+                    })}
+                </Select>
 
                 <TextField
                   fullWidth
@@ -130,6 +154,31 @@ export default function AddCarForRentPage() {
                   name="price"
                   sx={{ marginBottom: 2.5 }}
                   required
+                />
+                <TextField
+                  fullWidth
+                  placeholder="Year model"
+                  name="year_model"
+                  sx={{ marginBottom: 2.5 }}
+                  required
+                />
+                <TextField
+                  fullWidth
+                  placeholder="Pick Up Location"
+                  name="pickup_location"
+                  sx={{ marginBottom: 2.5 }}
+                  required
+                  multiline
+                  rows={3}
+                />
+                <TextField
+                  fullWidth
+                  placeholder="Description"
+                  name="description"
+                  sx={{ marginBottom: 2.5 }}
+                  required
+                  multiline
+                  rows={5}
                 />
 
                 <Stack
