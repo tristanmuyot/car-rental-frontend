@@ -42,14 +42,14 @@ export default function ProfilePage() {
         >
           <Box
             mt={{ xs: 7.5, md: 12 }}
-            px={{ xs: 2.5, md: 7.5 }}
+            px={{ xs: 2.5, md: 3.75 }}
             py={{ xs: 3.75, md: 5 }}
             bgcolor={white}
+            width={{ xs: "100%", md: "20%" }}
           >
             <Stack rowGap={3.75}>
               <Box
-                width="150px"
-                height="150px"
+                width="100%"
                 overflow="hidden"
                 position="relative"
                 borderRadius="100%"
@@ -69,7 +69,7 @@ export default function ProfilePage() {
                 <Typography color={alpha(darkCharcoal, 0.5)} mb={1.25}>
                   Username:{" "}
                 </Typography>
-                <Typography variant="h3">{username}</Typography>
+                <Typography variant="h4">{username}</Typography>
               </Box>
               <Box>
                 <Typography color={alpha(darkCharcoal, 0.5)} mb={1.25}>
@@ -86,9 +86,9 @@ export default function ProfilePage() {
             </Stack>
           </Box>
           <Box
-            width="100%"
+            width={{ xs: "100%", md: "80%" }}
             mt={{ xs: 7.5, md: 12 }}
-            px={{ xs: 2.5, md: 7.5 }}
+            px={{ xs: 2.5, md: 3.75 }}
             py={{ xs: 3.75, md: 5 }}
             bgcolor={white}
           >
@@ -113,7 +113,7 @@ export default function ProfilePage() {
               ) : (
                 cars.map((car) => (
                   <>
-                    <Grid item xs={12} sm={6} lg={2} key={car._id}>
+                    <Grid item xs={12} sm={6} key={car._id}>
                       <CarCard data={car} link={`/vehicles/${car._id}`} />
                     </Grid>
                   </>
